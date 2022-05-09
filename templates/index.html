@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta property="og:title" content="버킷리스트"/>
+    <meta property="og:description" content="바로 지금!"/>
+    <meta property="og:image" content="https://i.pinimg.com/564x/40/63/59/4063596f40c87977e5d97863a6a5f861.jpg"/>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+    <title>MBTrip</title>
+
+    <link rel="stylesheet" href="../static/style.css">
+
+    <script>
+        $(document).ready(function () {
+            show_comment();
+        });
+
+        function show_comment() {
+            $.ajax({
+                type: "GET",
+                url: "/mbtrip",
+                data: {},
+                success: function (response) {
+                }
+
+                function save_comment()
+            {
+                $.ajax({
+                    type: "POST",
+                    url: "/mbtrip",
+                    data: {common_give: common},
+                    success: function (response) {
+                        alert(response["msg"])
+                        window.location.reload()
+                    }
+                });
+            }
+
+
+    </script>
+</head>
+<body>
+<div class="header">
+    <div class="title">
+        <h2>MBTrip</h2>
+        <h4>INFJ's Place</h4>
+    </div>
+</div>
+<div class="trip_place">
+
+</div>
+
+
+</body>
+</html>

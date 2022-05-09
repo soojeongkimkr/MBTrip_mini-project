@@ -1,0 +1,22 @@
+* {
+    font-family: '';
+    line-height:1.4;
+}
+a{
+    color:#222;
+    text-decoration: none;
+}
+.header{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    width:100%;
+    height: 150px;
+    border-bottom: 1px solid #ccc;
+    color:#222;
+}
+.title{
+    text-align:center;
+    margin: auto;
+}
+
