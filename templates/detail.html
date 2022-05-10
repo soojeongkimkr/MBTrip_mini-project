@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+    <!-- Webpage Title -->
+    <title>datail | SWEETER</title>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bulma CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <!-- Font Awesome CSS -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script src="https://kit.fontawesome.com/f559d90c15.js" crossorigin="anonymous"></script>
+    <!-- JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+
+
+    <style>
+        .hero {
+            align-items: center;
+            justify-content: center;
+        }
+
+        .title {
+            text-align: center;
+        }
+
+        .section {
+            height: 500px;
+        }
+
+        .reveiw-box {
+
+            padding: 3rem 1.5rem;
+            display: block;
+            margin: 20px auto 10px auto;
+            width: 800px;
+            border-radius: 20px;
+        }
+
+        .input.is-rounded {
+            width: 650px;
+            height: 50px;
+        }
+        .button.is-light {
+            position: relative;
+            left: 10px;
+        }
+
+        .box {
+            margin: 20px auto 10px auto;
+            width: 750px;
+            border-radius: 20px;
+        }
+
+        nav.level.is-mobile {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+
+
+    </style>
+    <script>
+         // input창에 입력하고 작성하기 버튼 누르면 리뷰와 날짜 저장
+        function write_review() {
+            let write = $('#write').val()
+            let date = new Date().toISOString()
+            console.log(write, date)
+
+            $.ajax({
+                type: "POST",
+                url: "/write",
+                data: {write_give: write, date_give: date},
+                success: function (response) {
+                    alert(response["msg"])
+                    window.location.reload()
+                }
+            });
+        }
+
+      // 리뷰 보여주기
+        $(document).ready(function () {
+            show_review()
+        })
+
+        function show_review() {
+            $('#list-box').empty();
+            $.ajax({
+                type: "GET",
+                url: "/review",
+                data: {},
+                success: function (response) {
+                    if (response['result'] == "success") {
+                        let reviews = response["reviews"]
+                        for (let i = 0; i < reviews.length; i++) {
+                            let id = reviews[i]
+                            let name = reviews[i]['username']
+                            let date = reviews[i]['date'].slice(0, 10)
+                            let review = reviews[i]['write']
+                            let like = reviews[i]['like']
+                            console.log(id, name, date, review, )
+                            let temp_html = `<div class="box" id={$id['_id']}>
+                                            <article class="media">
+                                                <div class="media-left">
+                                                    <figure class="image is-64x64">
+                                                        <img src="https://cdn-icons-png.flaticon.com/512/569/569501.png" alt="Image">
+                                                    </figure>
+                                                </div>
+                                                <div class="media-content">
+                                                    <div class="content">
+                                                        <p>
+                                                            <strong>${name}</strong> <small>${date}</small>
+                                                            <br>
+                                                                ${review}
+                                                        </p>
+                                                    </div>
+                                                    <nav class="level is-mobile">
+                                                            <div class="feeling_div">
+                                                                    <button class="button is-white" onclick="like_review('${review}')" ><i class="fa-solid fa-heart"> ${like}</i> </button>
+                                                                    <button class="button is-white" onclick="delete_review('${id['_id']}')"><i class="fa-solid fa-trash-can"></i></button>
+                                                            </div>
+                                                        </nav>
+                                                </div>
+                                            </article>
+                                        </div>`
+                            $('#list-box').append(temp_html)
+                        }
+                    }
+                }
+            })
+        }
+
+        // 리뷰 삭제하기
+        function delete_review(id) {
+            $.ajax({
+                type: 'POST',
+                url: '/delete',
+                data: {
+                    id_give:id
+                },
+                success: function (response) {
+                    alert(response['msg']);
+                    window.location.reload();
+                }
+            });
+        }
+
+         function like_review(review){
+            $.ajax({
+                type: 'POST',
+                url: '/like',
+                data: { review_give: review },
+                success: function (response) {
+                    alert(response['msg']);
+                    window.location.reload();
+                }
+            });
+        }
+    </script>
+
+</head>
+<body>
+<section class="hero">
+    <div class="hero-body">
+        <p class="title">
+            MBTrip
+        </p>
+        <p class="subtitle">
+            mbti 추천 여행지
+        </p>
+    </div>
+</section>
+<section class="section">
+    <div class="container">
+        <h1>이미지</h1>
+        <h2>
+            명소 이름, 주소, mbti 설명
+        </h2>
+    </div>
+</section>
+<div id="list-box" class="container">
+
+</div>
+<div class="reveiw-box">
+    <div class="media-content">
+        <div class="field">
+            <input id="write" class="input is-rounded" placeholder="의견을 남겨주세요"><button class="button is-light" onclick="write_review()">작성하기</button>
+        </div>
+    </div>
+</div>
+</body>
+</html>
