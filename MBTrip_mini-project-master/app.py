@@ -79,31 +79,31 @@ def check_dup():
     # print(value_receive, type_receive, exists)
     return jsonify({'result': 'success', 'exists': exists})
 
-@app.route('/detail')
+@app.route('/ENTP')
 def detail():
-    return  render_template("enfj.html")
+    return  render_template("entp.html")
 
-@app.route('/enfj')
+@app.route('/ENFJ')
 def enfj():
     return  render_template("enfj.html")
 
-@app.route('/enfp')
+@app.route('/ENFP')
 def enfp():
     return  render_template("enfp.html")
 
-@app.route('/entj')
+@app.route('/ENTJ')
 def entj():
     return  render_template("entj.html")
 
-@app.route('/esfj')
+@app.route('/ESFJ')
 def esfj():
     return  render_template("esfj.html")
 
-@app.route('/esfp')
+@app.route('/ESFP')
 def esfp():
     return  render_template("esfp.html")
 
-@app.route('/estj')
+@app.route('/ESTJ')
 def estj():
     return  render_template("estj.html")
 
@@ -111,35 +111,35 @@ def estj():
 def estp():
     return  render_template("estp.html")
 
-@app.route('/infj')
+@app.route('/INFJ')
 def infj():
     return  render_template("infj.html")
 
-@app.route('/infp')
+@app.route('/INFP')
 def infp():
     return  render_template("infp.html")
 
-@app.route('/intj')
+@app.route('/INTJ')
 def intj():
     return  render_template("intj.html")
 
-@app.route('/intp')
+@app.route('/INTP')
 def intp():
     return  render_template("intp.html")
 
-@app.route('/isfj')
+@app.route('/ISFJ')
 def isfj():
     return  render_template("isfj.html")
 
-@app.route('/isfp')
+@app.route('/ISFP')
 def isfp():
     return  render_template("isfp.html")
 
-@app.route('/istj')
+@app.route('/ISTJ')
 def istj():
     return  render_template("istj.html")
 
-@app.route('/istp')
+@app.route('/ISTP')
 def istp():
     return  render_template("istp.html")
 
