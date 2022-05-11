@@ -1,0 +1,56 @@
+<div class="nav__list">
+                        <a href="istj.html" class="nav__link active">
+                            <span class="nav_name">ISTJ</span>
+                        </a>
+                        <a href="estj.html" class="nav__link">
+                            <span class="nav_name">ESTJ</span>
+                        </a>
+                        <a href="isfj.html" class="nav__link">
+                            <span class="nav_name">ISFJ</span>
+                        </a>
+                        <a href="esfj.html" class="nav__link">
+                            <span class="nav_name">ESFJ</span>
+                        </a>
+                        <a href="infj.html" class="nav__link">
+                            <span class="nav_name">INFJ</span>
+                        </a>
+                        <a href="enfj.html" class="nav__link">
+                            <span class="nav_name">ENFJ</span>
+                        </a>
+                        <a href="intj.html" class="nav__link">
+                            <span class="nav_name">INTJ</span>
+                        </a>
+
+                        <a href="entj.html" class="nav__link">
+                            <span class="nav_name">ENTJ</span>
+                        </a>
+                        <a href="istp.html" class="nav__link">
+                            <span class="nav_name">ISTP</span>
+                        </a>
+                        <a href="estp.html" class="nav__link">
+                            <span class="nav_name">ESTP</span>
+                        </a>
+
+                        <a href="isfp.html" class="nav__link">
+                            <span class="nav_name">ISFP</span>
+                        </a>
+
+                        <a href="esfp.html" class="nav__link">
+                            <span class="nav_name">ESFP</span>
+                        </a>
+                        <a href="infp.html" class="nav__link">
+                            <span class="nav_name">INFP</span>
+                        </a>
+                        <a href="enfp.html" class="nav__link">
+                            <span class="nav_name">ENFP</span>
+                        </a>
+
+                        <a href="intp.html" class="nav__link">
+                            <span class="nav_name">INTP</span>
+                        </a>
+
+                        <a href="entp.html" class="nav__link">
+                            <span class="nav_name">ENTP</span>
+                        </a>
+
+                </div>
