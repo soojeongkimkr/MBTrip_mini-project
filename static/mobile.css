@@ -1,7 +1,5 @@
 @media (max-width: 767px){
 
-
-
     /*모바일*/
     .header {
         display: flex;
@@ -59,7 +57,7 @@
     }
 
     .mbti_detail {
-        width: 50em;
+        width: 50rem;
         margin-left: 50px;
 
     }
@@ -107,7 +105,7 @@
         box-sizing: border-box;
         border-radius: 15px;
         outline: none;
-        background-color: #fff;
+        background-color: red;
         color: #777;
         font-size: 12px;
         text-align: center;
