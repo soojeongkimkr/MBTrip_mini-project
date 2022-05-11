@@ -1,28 +1,251 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <title>Main | MBTrip</title>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-              integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-              crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+    <title>main</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet">
 
-        <!-- Optional JavaScript -->
-        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-                integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-                crossorigin="anonymous"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-                integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-                crossorigin="anonymous"></script>
+    <style>
+        .mytitle {
+            font-family: 'airial', cursive;
 
-    </head>
-    <body>
-        <h2>메인페이지</h2>
-        <button onclick="location.href='/detail'">상세 페이지 가기</button>
-    </body>
+        }
+
+        .mytitle > h4, button {
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        .mytitle {
+            width: 100%;
+            height: 320px;
+
+            background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1584664711948-c29ed327a614?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80');
+            background-position: center;
+            background-size: cover;
+
+            color: white;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        a {
+            color: black;
+            text-decoration: none
+        }
+
+        .mycards {
+            margin: 40px auto 40px auto;
+            width: 80%;
+            max-width: 1200px;
+            font-family: 'Noto Sans KR', sans-serif;
+
+        }
+
+    </style>
+
+</head>
+<body>
+<div class="mytitle">
+    <p style="font-size:125px">MBTrip </p>
+    <br><h4>mbti별 추천 서울명소 살펴보기!👀</h4>
+    <button type="button"
+            onClick="window.open('https://www.16personalities.com/ko/%EB%AC%B4%EB%A3%8C-%EC%84%B1%EA%B2%A9-%EC%9C%A0%ED%98%95-%EA%B2%80%EC%82%AC');">
+        나의 mbti가 궁금하다면?click!
+    </button>
+</div>
+<div class="mycards">
+    <div class="row row-cols-1 row-cols-md-4 g-4">
+        <div class="col">
+            <div class="card h-100">
+                <a href="./istp.html">
+                    <img src="https://i.pinimg.com/564x/53/33/32/533332eb28b771dc09e975d79baba988.jpg"
+                         class="card-img-top" alt="..." width="220px" height="270px">
+                </a>
+                <div class="card-body">
+                    <h5 class="card-title">ISTP</h5>
+                    <p class="card-text">만능 재주꾼</p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card h-100">
+                <a href="./detail.html">
+                    <img src="https://i.pinimg.com/564x/e7/47/9d/e7479d5969e4673e18d023a7efd057db.jpg"
+                         class="card-img-top" alt="..." width="220px" height="270px"></a>
+                <div class="card-body">
+                    <h5 class="card-title">ESTP</h5>
+                    <p class="card-text">모험을 즐기는 사업가</p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card h-100">
+                <a href="./detail.html">
+                    <img src="https://i.pinimg.com/564x/3e/ff/d4/3effd4a1437af491adefa54936d611d7.jpg"
+                                 class="card-img-top" alt="..." width="220px" height="270px">
+                </a>
+                <div class="card-body">
+                    <h5 class="card-title">ISTJ</h5>
+                    <p class="card-text">청렴결백한 논리주의자</p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card h-100">
+                <a href="./detail.html"><img
+                        src="https://i.pinimg.com/564x/03/67/9e/03679e33c1dfc9cefd29d93f467541df.jpg"
+                        class="card-img-top" alt="..." width="220px" height="270px"></a>
+                <div class="card-body">
+                    <h5 class="card-title">ESTJ</h5>
+                    <p class="card-text">엄격한 관리자</p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card h-100">
+                <a href="./detail.html"><img
+                        src="https://i.pinimg.com/736x/9e/fe/ee/9efeee00dd3de2f08464f2dd0e080df3.jpg"
+                        class="card-img-top" alt="..." width="220px" height="270px"></a>
+                <div class="card-body">
+                    <h5 class="card-title">ENFJ</h5>
+                    <p class="card-text">정의로운 사회운동가</p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card h-100">
+                <a href="./detail.html"><img
+                        src="https://i.pinimg.com/474x/a3/d1/e7/a3d1e71bbe3dba8fff471a9963643333--mbti-personality-free-personality-test.jpg"
+                        class="card-img-top" alt="..." width="220px" height="270px"></a>
+                <div class="card-body">
+                    <h5 class="card-title">ESFP</h5>
+                    <p class="card-text">자유로운 영혼의 연예인</p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card h-100">
+                <a href="./detail.html"><img
+                        src="https://mblogthumb-phinf.pstatic.net/20150615_49/ddada_1434338941880eOXrE_PNG/esfj.png?type=w2"
+                        class="card-img-top" alt="..." width="220px" height="270px"></a>
+                <div class="card-body">
+                    <h5 class="card-title">ESFJ</h5>
+                    <p class="card-text">사교적인 외교관</p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card h-100">
+                <a href="./detail.html"><img
+                        src="https://i.pinimg.com/originals/6a/5a/d0/6a5ad07acfec36e2df85195ff47afb00.png"
+                        class="card-img-top" alt="..." width="220px" height="270px"></a>
+                <div class="card-body">
+                    <h5 class="card-title">ENFP</h5>
+                    <p class="card-text">재기발랄한 활동가</p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card h-100">
+                <a href="./detail.html">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Intp-logician.svg/1200px-Intp-logician.svg.png"
+                        class="card-img-top" alt="..." width="220px" height="270px"></a>
+                <div class="card-body">
+                    <h5 class="card-title">INTP</h5>
+                    <p class="card-text">논리적인 사색가</p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card h-100">
+                <a href="./detail.html"><img src="http://www.16personalities.com/images/types/intj.png"
+                                              class="card-img-top" alt="..." width="220px" height="270px"></a>
+                <div class="card-body">
+                    <h5 class="card-title">INTJ</h5>
+                    <p class="card-text">용의주도한 전략가</p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card h-100">
+                <a href="./detail.html"><img
+                        src="http://www.artinsight.co.kr/data/news/2107/3551744270_ZpYnCO30_31541259_nlJKIBMv_149503700_2991619751052379_2137213593660972272_n.jpg"
+                        class="card-img-top" alt="..." width="220px" height="270px"></a>
+                <div class="card-body">
+                    <h5 class="card-title">ISFP</h5>
+                    <p class="card-text">호기심 많은 예술가</p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card h-100">
+                <a href="./detail.html"><img
+                        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAABVlBMVEX///9PUlNzTWCWY3zfvaVHR0eziJ1vcXPq6urDmHvRobiLZlGdoaJUMELoyrZNUFGBVmzz8/NrQFb29vZuSFs3Nzd0TmE+Pj5ISEjOx8uwg5nIv8Q8PDzeuqHmw6puRVorKyvAknO+kafOmrOQWHTXpr1qamqDXlY5PUDHrJrMpImsg3NoO1J+gIHCwsLh4eHRq5Hs2czMzs6AX2+LXHOIY1OkdYzv5N2vsLF1dXWioqKRkZFYW1xzaGG3nYudj4YjJSaDWkHs4ufkytaZgI2WbYG8rbTJurLnz9rAnq/AmJO3uLmXl5eLe3BkXVicj4aXe2mFcWO2kXdfT0URHCGwmoxbTEIACxRMRUCLZ2+lgoCnfnHq1MViSlZ7XV+UcXVgMk/JqaHKrbvBmZ11TFOZcluNcn+mkZzGrrmGRWa7o5Snn5iqfYeVe4jevMzGqLZEEy52XmkDhbHDAAARlUlEQVR4nN2d+VsaSR7GsQUED25oBekWRARFMZIgIjGRKIlH3MRNdiaZ7MyYWSU7yUyy//8vW0cfVdXV0B7QXb7PPM9kRMf65P0eVdXV3T7fmBQ6OxvXr3JF9Y1KubyRdHsYI9N2OR3tTAGF3B7JaLTZSUcnJiDgVLnu9mBGoNY85IuWpzDiptvjuWcl23J6fgKoM6Wp3HJ7TPep0Fl6MRCFgBNThsoPp6TWN9KyxqfHKEZ8ICV1exfwoQClLYTajbs9urtruwP4NAMZCx9EST3tpAMB00CzzJiI226P8S5qBRBf1ACcsAACxFO3h3lbxdvyIuALEHyWGMWIbbeHeiuF9mD60QZyYhQj7rk92psLtQfGQH6MYkTRSur2lMY3T/HxY1STSBPxzY7GxxhoF6OildRWNI3xGAOBhQMBN8QwMd5OL+p8URZwkIWCdIzQ3qLOxwbooDIjjIH1jSU5YBOgg8uMGAYa5dPGwAFlpiyCgWb55Bs4KEY7ae9X0VOjfNoZOCBGo+An3AYYrGQ7QPLxDbSN0Q78mUUvL/XR5gTBxzXQPkaj+MfSnl0jhjaI9LMLUPsY7Rg/2HGbxEZJms8mQO1idGPC/NG0R3fd2mSA2hrIn66VnykEYWDRk2uLuIMKgwA5Fu5WFeUp8ePyrts0PG0QLdDeQG6Zeeb3+5XXZIynPbgBXk87MZBXZoCBkPB9hQxy2XtxWpYdGWgtM9BAqH2K0HsdY1u3cDCfJUaxgVBVirDsNpBFHQcBao3Rsm4gUJ6y0HN5eJp2ZCATo6aBMBHnyXbhNpBFshMD2RglDISE50Sd8dzUFDX7oQbSMUobCNuFh+tMfNGRgWSMlv9B+ffsvUI2RM/VmT15SIvQLLQx0O9/WgmQDdFzdaaedsJHTNfKVAYq1Xk5IL9WzHYhu03Eqiw7IpzgG4i9k5eqeZ3Qe3Wm3ipXhtcZo8xQGYgitFI5f72f93u2zkDFT3eHEXa4BlbnK9G3b8JrCtEuPFdnNJWHVBstBff9CoH4/vzNRRgoD2mferTOaArJ84Nm3VqMTsgoIuEkza9EIpECxAtfvPGT6ye3UWzUmo8OWlqgGO1UKvPnT9++gb4VIGAEAf7z3bt03lg/ea/OaOpEJ6LG+slKCTPwfXUrbMoPCeEX3rxbWnr+VtHXT2mP7nmHKgDDnDvP01aCGAWTGACxZhJuQcI8JHwOCM8Vff3k1TrTgrO2aIAUAQliVCuha/9a+vnCJFRgFr57/vwnmJp+2cN1xldGOPOBAA8yasxClfPnS8/TiHAtoifixfnP7xVj/eQ2iY1CMjYrYBFIymjH7IEgIpfeYRMRIQzbNQU3ENgQPVtnWtrSImpFDMjneQNQ+RkiIsBCRC81ef1D0C6WPFpnYCXFYuM0EKg8DW+ZLb669NO7N0Qx9cM/GGso2bN1Rg9SS5zKlcBbEIbUPM2fx4R5LRFN/v2KZy8etsz1b5TEmwfTly3CJU1bZjEFiUgYXPFqndEqKR2nlfNnVVhB8kSmUYiYcIswOL/k1SNtqN0zcSrnUYEEbGEyEAlE3C785Gdenc/4WgFqAoMJQYvburiaUSDNGkuIJjcRjEhow20SO5XpeSiO0wnFfzEzM5NHYWohhIgWwvyO2yQ2IiopYWKlCoa8frCFwpRNRKBwAbWLiCIAIR2khomv4bp9ax8lnSURIWKeNTH/yG0UG5UtiyWMaAycl4jgy6CY+qv7VeJLn9xG4YuupGacVvB0GldTDqE/f3VwcHBFfiXiNgtfliDVTYRrvpMPah6GKScRQfjOzFCA/rzbLHxZg1RriqDWKBlVPcmv8RMRIvoFIGQrKRGnrxXlY0r6gFaDXEJL3Hrv2raPH6RanMr+/GtVUvFKwhGhJ9sFN0i1OD2vBCQp9UuY3xE5hF5sF5xKahICAUIUprxEVNA/JKEX20XL5sKhvor6d+rXC34iKvmPkvrbCQXpYrtobbQ267w6YBek5mL/aZiXiEr1N1WVJDWhfjghInjsYKY6aaiJjbPT7RBxHyS/klIL4XNtSU8BnjR+r9VqaqZxfdjv9y+NMHUP0BfCpy1keTGdlifKe8BSCGpTScn9mgltB5jgu+z3cgtd/DfV/XxsAPrzbt5EukmezEOgS4vljc6ASqppHhNSiXgZzBaPP3958eI4m/2DLDUjbRehIbvNe9TpSo3UppCSW26VMC8RASNS8FIZG+HGsNNyHSuh3dW0AIeQ6YjKZTEbpAz0j7ghbleiU4O/I5R2SkhtDFcurImoMf7B9MNRtotka3YjGhiy1XXKItodoqH2hSvrnETUGK1fGRVgfRaoM3RPfUOmCZ1YGIB7wo6npiNqF8nTM0jY3hxaq5mxO7HQaPmOpqajaRfIwNkzJxvqdSpO7YKUjeWwTSIycEBKZBSE2MCWs6VZa+gdP9YLUHqpsV8jAjZ/5NHOaFaHNzAQaVceShhgCdftExEaF/n0aGd0c5nNmxgIlRwapNZriG+5iQivaURGyQYVuqGBUGYqDl1V6DpnElFR/FtrF+tXByO/loYNbN8w/Ns6olMLAwGNEF3Ozm8BthmkgxFvy9zGQKQy7+76ARamO1oiXhhsWFcjoCKkGXiL61lJ3vMRbOtMulPvJQDi+oxFq6PMwVD7lgZCbS/ZEzJBmp4Av0KVVIBoJfxP756pyDEiA2dve0HyzP5g9zzNB1dkvYTER8yo98lEKn4XA5E6sgML0wF837kqAaXWwxcM4BMpkbsnIkZ3NBAqvmhDaFq4GNDuk8wlICF08YomXJWkzL0AsYNrIQPveHxsc2lwnVmUjftAGylECF2kCX+VpMTCXXGs2r51CaXVnuDdgqBZKC+aK81cTdKkrhfoNATUjeQ919Nk6+weDMSqt8uWbMR86TNt2F240xSTTEQqTtGXstPTK3+/eNW9efOP8/5utmfvnIGUQqe71Cl9WGfkpT00WkSXDQaD2RQf8Qn6UmxlGmgZ6KjRuL7+6/Cw3+/1erncwsJCt14PhUJx2uZk91Xuy3G2Wfpvl+KFvxQvdO/HQPMXbu+Z8ToP/IN8oVffMR1Sk0D8hSo0MDuD01grRykkFSqBVIPCf0yoUgP8DRw2S0iTQCUEtvPoU6S6VigUqvo66f4MNFVvd5CVUXkJPXil2zTxoMw4laQnZr+XCBMhoTREAH+SUCm/Fi4g4Wm9bxQGmgq1pkAD3MX3gnwh+LJNMBhynKtkGiITi1gxDhSjDEk4WQgTKvw5MgMNxTf1e12+mwGKx/KYg/hEAzziOW2jGAnY3CJOjYe/3kcPdCzCPU3U6FeJNJRihtuZ4YSPScJv6NwcxtzHBo7tdiKIdxRLkeOhhr+q9XtoYfYmhJMWQrwVUv06TgNBuDYBXoqOKSpOESICMmM0GBwOSKfhCbGfXB2ngaCU1lLWAdFZtooLTcqMUSeEMZqQ2PJpz34Njw9Qn2ozQUUFYWp1FdT+WIMsuikOEy0qDUuXcJ8O7foo1dn9cGGMhD2VN6LJGKUPR1TLdEJIB2np0w7Qy69f2+32V9guxnhx9VAfK01IqxkM3pSQDtJSUl8nzb6+Wr8ojJOwwR/SEMLmQMJUopY5mtTma1j6OmkPNZ+Dl+MD9BnLpYw94E0IU2ot8VcPzrO7C9+bOmVzO7AHAZ8dIMJxnqbqGoTSTQiPuISQ7rpHNYJu7hhiNn2didmzU5/v5czBwfsx8vl8CwljfAMS0QFhCiwxGr0u95d0v3zx1St4Hpz8c5wR6iNK6cBEHEII6GqN/sLg6tF26Q6bvkk4IBGthLR3w+jcVIMw4waEj0nvPHnO1BAZbLaJ2FwpWgmxd96mA4rXHBA2wcKeIYzVMgLQQRGl1L7UoH0LCjCbE4IOKkcS2pYaFjCY9W5hYUWU0gGlpjldFJbwmupr9qWGScOs2+N2LspC+54vLmGyRhHaJqKlH7o9cMfq0oT2PZ8BLLo9cMeiSumgRGQIj90euGP1VGeEbCn97vbAHesvZhFkU2qKK0zD/+z2wB2rQQPalJriCtPys1/cHrhTJZk0tCk1TXbWln3h9sidii2ldonYZKelwhAuWDy0SUSmH2ZfuT1yp2JLqX3PZwj52zEe1KGF0K7nC0vI5mHqKNjkAS4XBSUEcxpm6g2HbwUsMpVm+W+3B34D9Wtk08fXX1gbg6AfkiZOTy+Lsz70+eoNo6Cm9JJJ25hdofphEf6XMO0CqaeFKnmJl7CxiQ+YFElAsUz0+eK44pCXeAkbtTNC03qEYkKxTAStP5OQMnRH0G2cniYQi8Z/LLs95Burn2Cu8mqMJtNKkQCcXhZmWmPoi5UQhGpxZQUf1isWi8HlaVJuD/im6nIAg8GjWEZKGcquTAtsIo+PudL7eHJaYBOPeRYyxxGMxiGiiS+4gNaFFZWJK26P+gbiJyFzdO3xJGuiOPPvJDcJ2fOV+hxcRBO5ScieRYixEwCBTPzbCaC+g5MV0ERuElpOBGXYaao4JiYd9AmJ2KKi2r4QK2FeEmatJ4CJHQ3RTHTQJyRqD64pmokcQHavX6L3UcmOsSzAiQX2pAz/VB61rSGYicdOAOmNYspE729nsITck6PM5YxpoUz8TtdS/vFmZnuR7BjeN5Em5PQJyXq95vGySISfKUL+rTDsNbdYjDDRbYChoght7teaZAl/EBtUbgMMFbkDxT+9bb2oGJuTDBO9X2mIlYUNoPXCcGxuzig23t8aNjcwjub4gNarpoBwTiMUYLfGIGzOzTkM0skMINSmpwLMvV9phNk5O0IL4KQKvndOmImpTpiAhLxmwbm0jwiP8Ga42+MfLkxYTMFBqzxCzvEMRDhXFKNZaJsYMTTmBI/QCjiZQN+dWRGiWWDCozlbQt75E0yITBSEUAMEtlgJeaekavi7UysiNAtImJ0bQMgBnNS/PbsiQLPwhbII8MePH//r56wniLjHwIy/ESEI41lAN6fdNWg5yccN0lLvEP4M7BjTnl87AcJGP2c8nsLZKTD4nJL4Qv9/wHcB2iEtSx5yg7Skf/t2u+/maG+jhs3VChtCAXXNENocxnR7mHcQexyTf6C26fYw76A+Q8i3UGRC5tCwTZCKc0+QVcw9NDY3mIhMuEC1fLVkiCql4twTZNVO4WrmycwTTR/jXV2rpC7dHuYdFCqEwxf6c+jIx3O80Z/5dXVVCHv0ZV2OFMfPHFvHhMTzOV7iJ3ZcwYd9F7z4Bh2nSupPVYNGHhAf7BxoeKIT+ojnxl3skx/oeJDQi+95cizyuXgUiJ/4wJPv6nIq4sF4BWon9FHhgRBumYRr1AfJh0JYNQmZ91WZ7ha8v809QGa6sfUkYpg4zud03b/sOXYeCOEng2ON/chMRDcGdm8ySmbBMjWrPgxCIxatBdPsF24M7N60Y48R1z+yxK9QMgi3rJ9p/WKN85FA0hs7b3YdAXBb8AmdIq+eTELOvCVnPCdX6MXFgGpyvf8gELVU471RTc2YL34SeAG1toZSjfPyxm5N/aiIj5g03mNl+aiXkFTzLVfefKGzA/XytgSHqpT6zXxmdX4Er/MYhzImAvsR3EFNVPUnVp9MloREzEmKbRii61IN7dNvpUkxERsfNEIl/824SphMxuOhUBJdtUllqgowEO+Bl0b08qARaqGmJ9ofYPzfkwDMFLpqo0rqSb6pb/KXhHmakq5r3A9AkqHx10nAEHxcj9oHBZW4qCgSIgzFhVoKECqXk5pHWcrDeg1UmhB8mRBx0a30PR6P3/cbhO5VOMf0OEyoJ8qlEYPAIQoxI6Ua8XivRl12Kx0b3+MpVArMlKp+/EZeSKPiNN5Iqf14CCNmjEfuJ3Ls/8V90iQPDg3tMMVcEw0S3xrvq4ke+jd1kRF9zeb/5yZqkou5UGMIS4RB8d7vv9cxqv7SI/QSJHtC90ktoRpvxFiRH9e1oI3nSNEV10N4JiZpE3vsKzPUIM+C0dIx62T8oZdvCQ5GCcXsAqsHAEaLX4EGgYlCRmkYpdenMc7EoXwYYLQQpldC8f/RRZ8oISO1ZgAAAABJRU5ErkJggg=="
+                        class="card-img-top" alt="..." width="220px" height="270px"></a>
+                <div class="card-body">
+                    <h5 class="card-title">ENTJ</h5>
+                    <p class="card-text">대담한 통솔자</p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card h-100">
+                <a href="./detail.html"><img
+                        src="data:image/jpeg;base64,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"
+                        class="card-img-top" alt="..." width="220px" height="270px"></a>
+                <div class="card-body">
+                    <h5 class="card-title">INFJ</h5>
+                    <p class="card-text">선의의 옹호자</p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card h-100">
+                <a href="./detail.html"><img
+                        src="https://static.neris-assets.com/images/personality-types/avatars/infp-mediator.png"
+                        class="card-img-top" alt="..." width="220px" height="270px"></a>
+                <div class="card-body">
+                    <h5 class="card-title">INFP</h5>
+                    <p class="card-text">열정적인 중재자</p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card h-100">
+                <a href="./test.html"><img
+                        src="data:image/png;base64,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"
+                        class="card-img-top" alt="..." width="220px" height="270px"></a>
+                <div class="card-body">
+                    <h5 class="card-title">ISFJ</h5>
+                    <p class="card-text">용감한 수호자</p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card h-100">
+                <a href="./detail.html"><img
+                        src="https://post-phinf.pstatic.net/MjAyMTAzMTZfMyAg/MDAxNjE1ODU3MDczMzY1.QC2oHrnzyPJ_n-Weesg3yz3rKjGFL-JsvYg_BuU_R1Ug.nlnb94y2l0Re8Rau3IIZkJn002-0xsQw29IUeziMVsgg.PNG/entp-debater.png?type=w1200"
+                        class="card-img-top" alt="..." width="220px" height="270px"></a>
+                <div class="card-body">
+                    <h5 class="card-title">ENTP</h5>
+                    <p class="card-text">뜨거운 논쟁을 즐기는 변론가</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
 </html>
+
