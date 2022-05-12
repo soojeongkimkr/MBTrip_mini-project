@@ -1,12 +1,12 @@
 // 리뷰와 날짜 저장
-function write_review() {
+function intj_write_review() {
     let write = $('#write').val()
     let date = new Date().toISOString()
     console.log(write, date)
 
     $.ajax({
         type: "POST",
-        url: "/write",
+        url: "/write/intj",
         data: {write_give: write, date_give: date},
         success: function (response) {
             alert(response["msg"])
@@ -36,11 +36,11 @@ function time2str(date) {
 }
 
 // 리뷰 보여주기
-function show_review() {
+function intj_show_review() {
     $('#list-box').empty();
     $.ajax({
         type: "GET",
-        url: "/review",
+        url: "/review/intj",
         data: {},
         success: function (response) {
             if (response['result'] == "success") {
@@ -70,8 +70,8 @@ function show_review() {
                                                     </div>
                                                     <nav class="level is-mobile">
                                                             <div class="feeling_div">
-                                                                    <button class="button is-white" onclick="like_review('${review}')" ><i class="fa-solid fa-heart"> ${like}</i> </button>
-                                                                    <button class="button is-white" onclick="delete_review('${id['_id']}')"><i class="fa-solid fa-trash-can"></i></button>
+                                                                    <button class="button is-white" onclick="intj_like_review('${review}')" ><i class="fa-solid fa-heart"> ${like}</i> </button>
+                                                                    <button class="button is-white" onclick="intj_delete_review('${id['_id']}')"><i class="fa-solid fa-trash-can"></i></button>
                                                             </div>
                                                         </nav>
                                                 </div>
@@ -85,10 +85,10 @@ function show_review() {
 }
 
 // 리뷰 삭제하기
-function delete_review(id) {
+function intj_delete_review(id) {
     $.ajax({
         type: 'POST',
-        url: '/delete',
+        url: '/delete/intj',
         data: {
             id_give: id
         },
@@ -100,10 +100,10 @@ function delete_review(id) {
 }
 
 // 좋아요 수
-function like_review(review) {
+function intj_like_review(review) {
     $.ajax({
         type: 'POST',
-        url: '/like',
+        url: '/like/intj',
         data: {
             review_give: review
         },
