@@ -51,7 +51,7 @@ def sign_in():
          'id': username_receive,
          'exp': datetime.utcnow() + timedelta(seconds=60 * 60 * 24)  # 로그인 24시간 유지
         }
-        token = jwt.encode(payload, SECRET_KEY, algorithm='HS256').decode('utf-8')
+        token = jwt.encode(payload, SECRET_KEY, algorithm='HS256')
 
         return jsonify({'result': 'success', 'token': token})
     # 찾지 못하면
@@ -143,7 +143,7 @@ def istp():
     return  render_template("istp.html")
 
 @app.route('/write/enfj', methods=['POST'])
-def enfj_write():
+def enfj_write_review():
     token_receive = request.cookies.get('mytoken')
     try:
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
@@ -161,7 +161,7 @@ def enfj_write():
     except (jwt.ExpiredSignature, jwt.exceptions.DecodeError):
         return redirect(url_for('home'))
 @app.route('/review/enfj', methods=['GET'])
-def enfj_show():
+def enfj_show_review():
     token_receive = request.cookies.get('mytoken')
     try:
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
@@ -176,21 +176,21 @@ def enfj_show():
     except (jwt.ExpiredSignature, jwt.exceptions.DecodeError):
         return redirect(url_for('home'))
 @app.route('/delete/enfj', methods=['POST'])
-def enfj_delete():
+def enfj_delete_review():
     id_receive = request.form["id_give"]
     db.enfj.delete_one({'_id': ObjectId(id_receive)})
     return jsonify({ 'msg': '리뷰 삭제'})
 @app.route('/like/enfj', methods=['POST'])
-def enfj_like():
+def enfj_like_review():
     review_receive = request.form['review_give']
     target_review = db.enfj.find_one({'write': review_receive})
     current_review = target_review['like']
     new_like = current_review + 1
-    db.reviews.update_one({'write': review_receive}, {'$set': {'like': new_like}})
+    db.enfj.update_one({'write': review_receive}, {'$set': {'like': new_like}})
     return jsonify({'msg': '좋아요!'})
 
 @app.route('/write/enfp', methods=['POST'])
-def enfp_write():
+def enfp_write_review():
     token_receive = request.cookies.get('mytoken')
     try:
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
@@ -208,7 +208,7 @@ def enfp_write():
     except (jwt.ExpiredSignature, jwt.exceptions.DecodeError):
         return redirect(url_for('home'))
 @app.route('/review/enfp', methods=['GET'])
-def enfp_show():
+def enfp_show_review():
     token_receive = request.cookies.get('mytoken')
     try:
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
@@ -223,17 +223,675 @@ def enfp_show():
     except (jwt.ExpiredSignature, jwt.exceptions.DecodeError):
         return redirect(url_for('home'))
 @app.route('/delete/enfp', methods=['POST'])
-def enfp_delete():
+def enfp_delete_review():
     id_receive = request.form["id_give"]
     db.enfp.delete_one({'_id': ObjectId(id_receive)})
     return jsonify({ 'msg': '리뷰 삭제'})
 @app.route('/like/enfp', methods=['POST'])
-def enfp_like():
+def enfp_like_review():
     review_receive = request.form['review_give']
     target_review = db.enfp.find_one({'write': review_receive})
     current_review = target_review['like']
     new_like = current_review + 1
-    db.reviews.update_one({'write': review_receive}, {'$set': {'like': new_like}})
+    db.enfp.update_one({'write': review_receive}, {'$set': {'like': new_like}})
+    return jsonify({'msg': '좋아요!'})
+
+@app.route('/write/entj', methods=['POST'])
+def entj_write_review():
+    token_receive = request.cookies.get('mytoken')
+    try:
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+        user_info = db.users.find_one({"username": payload["id"]})
+        write_receive = request.form['write_give']
+        date_receive = request.form['date_give']
+        doc = {
+            "username" : user_info["username"],
+            "write": write_receive,
+            "date": date_receive,
+            "like" : 0,
+        }
+        db.entj.insert_one(doc)
+        return jsonify({"result": "success", 'msg': '작성 성공'})
+    except (jwt.ExpiredSignature, jwt.exceptions.DecodeError):
+        return redirect(url_for('home'))
+@app.route('/review/entj', methods=['GET'])
+def entj_show_review():
+    token_receive = request.cookies.get('mytoken')
+    try:
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+        username = payload["id"]
+        if username == "":
+            reviews = list(db.entj.find({}).sort("date", -1).limit(10))
+        else:
+            reviews = list(db.entj.find({"username": username}).sort("date", -1).limit(10))
+        for review in reviews:
+            review["_id"] = str(review["_id"])
+        return jsonify({"result": "success", "reviews": reviews})
+    except (jwt.ExpiredSignature, jwt.exceptions.DecodeError):
+        return redirect(url_for('home'))
+@app.route('/delete/entj', methods=['POST'])
+def entj_delete_review():
+    id_receive = request.form["id_give"]
+    db.entj.delete_one({'_id': ObjectId(id_receive)})
+    return jsonify({ 'msg': '리뷰 삭제'})
+@app.route('/like/entj', methods=['POST'])
+def entj_like_review():
+    review_receive = request.form['review_give']
+    target_review = db.entj.find_one({'write': review_receive})
+    current_review = target_review['like']
+    new_like = current_review + 1
+    db.entj.update_one({'write': review_receive}, {'$set': {'like': new_like}})
+    return jsonify({'msg': '좋아요!'})
+
+@app.route('/write/entp', methods=['POST'])
+def entp_write_review():
+    token_receive = request.cookies.get('mytoken')
+    try:
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+        user_info = db.users.find_one({"username": payload["id"]})
+        write_receive = request.form['write_give']
+        date_receive = request.form['date_give']
+        doc = {
+            "username" : user_info["username"],
+            "write": write_receive,
+            "date": date_receive,
+            "like" : 0,
+        }
+        db.entp.insert_one(doc)
+        return jsonify({"result": "success", 'msg': '작성 성공'})
+    except (jwt.ExpiredSignature, jwt.exceptions.DecodeError):
+        return redirect(url_for('home'))
+@app.route('/review/entp', methods=['GET'])
+def entp_show_review():
+    token_receive = request.cookies.get('mytoken')
+    try:
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+        username = payload["id"]
+        if username == "":
+            reviews = list(db.entp.find({}).sort("date", -1).limit(10))
+        else:
+            reviews = list(db.entp.find({"username": username}).sort("date", -1).limit(10))
+        for review in reviews:
+            review["_id"] = str(review["_id"])
+        return jsonify({"result": "success", "reviews": reviews})
+    except (jwt.ExpiredSignature, jwt.exceptions.DecodeError):
+        return redirect(url_for('home'))
+@app.route('/delete/entp', methods=['POST'])
+def entp_delete_review():
+    id_receive = request.form["id_give"]
+    db.entp.delete_one({'_id': ObjectId(id_receive)})
+    return jsonify({ 'msg': '리뷰 삭제'})
+@app.route('/like/entp', methods=['POST'])
+def entp_like_review():
+    review_receive = request.form['review_give']
+    target_review = db.entp.find_one({'write': review_receive})
+    current_review = target_review['like']
+    new_like = current_review + 1
+    db.entp.update_one({'write': review_receive}, {'$set': {'like': new_like}})
+    return jsonify({'msg': '좋아요!'})
+
+@app.route('/write/esfj', methods=['POST'])
+def esfj_write_review():
+    token_receive = request.cookies.get('mytoken')
+    try:
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+        user_info = db.users.find_one({"username": payload["id"]})
+        write_receive = request.form['write_give']
+        date_receive = request.form['date_give']
+        doc = {
+            "username" : user_info["username"],
+            "write": write_receive,
+            "date": date_receive,
+            "like" : 0,
+        }
+        db.esfj.insert_one(doc)
+        return jsonify({"result": "success", 'msg': '작성 성공'})
+    except (jwt.ExpiredSignature, jwt.exceptions.DecodeError):
+        return redirect(url_for('home'))
+@app.route('/review/esfj', methods=['GET'])
+def esfj_show_review():
+    token_receive = request.cookies.get('mytoken')
+    try:
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+        username = payload["id"]
+        if username == "":
+            reviews = list(db.esfj.find({}).sort("date", -1).limit(10))
+        else:
+            reviews = list(db.esfj.find({"username": username}).sort("date", -1).limit(10))
+        for review in reviews:
+            review["_id"] = str(review["_id"])
+        return jsonify({"result": "success", "reviews": reviews})
+    except (jwt.ExpiredSignature, jwt.exceptions.DecodeError):
+        return redirect(url_for('home'))
+@app.route('/delete/esfj', methods=['POST'])
+def esfj_delete_review():
+    id_receive = request.form["id_give"]
+    db.esfj.delete_one({'_id': ObjectId(id_receive)})
+    return jsonify({ 'msg': '리뷰 삭제'})
+@app.route('/like/esfj', methods=['POST'])
+def esfj_like_review():
+    review_receive = request.form['review_give']
+    target_review = db.esfj.find_one({'write': review_receive})
+    current_review = target_review['like']
+    new_like = current_review + 1
+    db.esfj.update_one({'write': review_receive}, {'$set': {'like': new_like}})
+    return jsonify({'msg': '좋아요!'})
+
+@app.route('/write/esfp', methods=['POST'])
+def esfp_write_review():
+    token_receive = request.cookies.get('mytoken')
+    try:
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+        user_info = db.users.find_one({"username": payload["id"]})
+        write_receive = request.form['write_give']
+        date_receive = request.form['date_give']
+        doc = {
+            "username" : user_info["username"],
+            "write": write_receive,
+            "date": date_receive,
+            "like" : 0,
+        }
+        db.esfp.insert_one(doc)
+        return jsonify({"result": "success", 'msg': '작성 성공'})
+    except (jwt.ExpiredSignature, jwt.exceptions.DecodeError):
+        return redirect(url_for('home'))
+@app.route('/review/esfp', methods=['GET'])
+def esfp_show_review():
+    token_receive = request.cookies.get('mytoken')
+    try:
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+        username = payload["id"]
+        if username == "":
+            reviews = list(db.esfp.find({}).sort("date", -1).limit(10))
+        else:
+            reviews = list(db.esfp.find({"username": username}).sort("date", -1).limit(10))
+        for review in reviews:
+            review["_id"] = str(review["_id"])
+        return jsonify({"result": "success", "reviews": reviews})
+    except (jwt.ExpiredSignature, jwt.exceptions.DecodeError):
+        return redirect(url_for('home'))
+@app.route('/delete/esfp', methods=['POST'])
+def esfp_delete_review():
+    id_receive = request.form["id_give"]
+    db.esfp.delete_one({'_id': ObjectId(id_receive)})
+    return jsonify({ 'msg': '리뷰 삭제'})
+@app.route('/like/esfp', methods=['POST'])
+def esfp_like_review():
+    review_receive = request.form['review_give']
+    target_review = db.esfp.find_one({'write': review_receive})
+    current_review = target_review['like']
+    new_like = current_review + 1
+    db.esfp.update_one({'write': review_receive}, {'$set': {'like': new_like}})
+    return jsonify({'msg': '좋아요!'})
+
+@app.route('/write/estj', methods=['POST'])
+def estj_write_review():
+    token_receive = request.cookies.get('mytoken')
+    try:
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+        user_info = db.users.find_one({"username": payload["id"]})
+        write_receive = request.form['write_give']
+        date_receive = request.form['date_give']
+        doc = {
+            "username" : user_info["username"],
+            "write": write_receive,
+            "date": date_receive,
+            "like" : 0,
+        }
+        db.estj.insert_one(doc)
+        return jsonify({"result": "success", 'msg': '작성 성공'})
+    except (jwt.ExpiredSignature, jwt.exceptions.DecodeError):
+        return redirect(url_for('home'))
+@app.route('/review/estj', methods=['GET'])
+def estj_show_review():
+    token_receive = request.cookies.get('mytoken')
+    try:
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+        username = payload["id"]
+        if username == "":
+            reviews = list(db.estj.find({}).sort("date", -1).limit(10))
+        else:
+            reviews = list(db.estj.find({"username": username}).sort("date", -1).limit(10))
+        for review in reviews:
+            review["_id"] = str(review["_id"])
+        return jsonify({"result": "success", "reviews": reviews})
+    except (jwt.ExpiredSignature, jwt.exceptions.DecodeError):
+        return redirect(url_for('home'))
+@app.route('/delete/estj', methods=['POST'])
+def estj_delete_review():
+    id_receive = request.form["id_give"]
+    db.estj.delete_one({'_id': ObjectId(id_receive)})
+    return jsonify({ 'msg': '리뷰 삭제'})
+@app.route('/like/estj', methods=['POST'])
+def estj_like_review():
+    review_receive = request.form['review_give']
+    target_review = db.estj.find_one({'write': review_receive})
+    current_review = target_review['like']
+    new_like = current_review + 1
+    db.estj.update_one({'write': review_receive}, {'$set': {'like': new_like}})
+    return jsonify({'msg': '좋아요!'})
+
+@app.route('/write/estp', methods=['POST'])
+def estp_write_review():
+    token_receive = request.cookies.get('mytoken')
+    try:
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+        user_info = db.users.find_one({"username": payload["id"]})
+        write_receive = request.form['write_give']
+        date_receive = request.form['date_give']
+        doc = {
+            "username" : user_info["username"],
+            "write": write_receive,
+            "date": date_receive,
+            "like" : 0,
+        }
+        db.estp.insert_one(doc)
+        return jsonify({"result": "success", 'msg': '작성 성공'})
+    except (jwt.ExpiredSignature, jwt.exceptions.DecodeError):
+        return redirect(url_for('home'))
+@app.route('/review/estp', methods=['GET'])
+def estp_show_review():
+    token_receive = request.cookies.get('mytoken')
+    try:
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+        username = payload["id"]
+        if username == "":
+            reviews = list(db.estp.find({}).sort("date", -1).limit(10))
+        else:
+            reviews = list(db.estp.find({"username": username}).sort("date", -1).limit(10))
+        for review in reviews:
+            review["_id"] = str(review["_id"])
+        return jsonify({"result": "success", "reviews": reviews})
+    except (jwt.ExpiredSignature, jwt.exceptions.DecodeError):
+        return redirect(url_for('home'))
+@app.route('/delete/estp', methods=['POST'])
+def estp_delete_review():
+    id_receive = request.form["id_give"]
+    db.estp.delete_one({'_id': ObjectId(id_receive)})
+    return jsonify({ 'msg': '리뷰 삭제'})
+@app.route('/like/estp', methods=['POST'])
+def estp_like_review():
+    review_receive = request.form['review_give']
+    target_review = db.estp.find_one({'write': review_receive})
+    current_review = target_review['like']
+    new_like = current_review + 1
+    db.estp.update_one({'write': review_receive}, {'$set': {'like': new_like}})
+    return jsonify({'msg': '좋아요!'})
+
+@app.route('/write/infj', methods=['POST'])
+def infj_write_review():
+    token_receive = request.cookies.get('mytoken')
+    try:
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+        user_info = db.users.find_one({"username": payload["id"]})
+        write_receive = request.form['write_give']
+        date_receive = request.form['date_give']
+        doc = {
+            "username" : user_info["username"],
+            "write": write_receive,
+            "date": date_receive,
+            "like" : 0,
+        }
+        db.infj.insert_one(doc)
+        return jsonify({"result": "success", 'msg': '작성 성공'})
+    except (jwt.ExpiredSignature, jwt.exceptions.DecodeError):
+        return redirect(url_for('home'))
+@app.route('/review/infj', methods=['GET'])
+def infj_show_review():
+    token_receive = request.cookies.get('mytoken')
+    try:
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+        username = payload["id"]
+        if username == "":
+            reviews = list(db.infj.find({}).sort("date", -1).limit(10))
+        else:
+            reviews = list(db.infj.find({"username": username}).sort("date", -1).limit(10))
+        for review in reviews:
+            review["_id"] = str(review["_id"])
+        return jsonify({"result": "success", "reviews": reviews})
+    except (jwt.ExpiredSignature, jwt.exceptions.DecodeError):
+        return redirect(url_for('home'))
+@app.route('/delete/infj', methods=['POST'])
+def infj_delete_review():
+    id_receive = request.form["id_give"]
+    db.infj.delete_one({'_id': ObjectId(id_receive)})
+    return jsonify({ 'msg': '리뷰 삭제'})
+@app.route('/like/infj', methods=['POST'])
+def infj_like_review():
+    review_receive = request.form['review_give']
+    target_review = db.infj.find_one({'write': review_receive})
+    current_review = target_review['like']
+    new_like = current_review + 1
+    db.infj.update_one({'write': review_receive}, {'$set': {'like': new_like}})
+    return jsonify({'msg': '좋아요!'})
+
+@app.route('/write/infp', methods=['POST'])
+def infp_write_review():
+    token_receive = request.cookies.get('mytoken')
+    try:
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+        user_info = db.users.find_one({"username": payload["id"]})
+        write_receive = request.form['write_give']
+        date_receive = request.form['date_give']
+        doc = {
+            "username" : user_info["username"],
+            "write": write_receive,
+            "date": date_receive,
+            "like" : 0,
+        }
+        db.infp.insert_one(doc)
+        return jsonify({"result": "success", 'msg': '작성 성공'})
+    except (jwt.ExpiredSignature, jwt.exceptions.DecodeError):
+        return redirect(url_for('home'))
+@app.route('/review/infp', methods=['GET'])
+def infp_show_review():
+    token_receive = request.cookies.get('mytoken')
+    try:
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+        username = payload["id"]
+        if username == "":
+            reviews = list(db.infp.find({}).sort("date", -1).limit(10))
+        else:
+            reviews = list(db.infp.find({"username": username}).sort("date", -1).limit(10))
+        for review in reviews:
+            review["_id"] = str(review["_id"])
+        return jsonify({"result": "success", "reviews": reviews})
+    except (jwt.ExpiredSignature, jwt.exceptions.DecodeError):
+        return redirect(url_for('home'))
+@app.route('/delete/infp', methods=['POST'])
+def infp_delete_review():
+    id_receive = request.form["id_give"]
+    db.infp.delete_one({'_id': ObjectId(id_receive)})
+    return jsonify({ 'msg': '리뷰 삭제'})
+@app.route('/like/infp', methods=['POST'])
+def infp_like_review():
+    review_receive = request.form['review_give']
+    target_review = db.infp.find_one({'write': review_receive})
+    current_review = target_review['like']
+    new_like = current_review + 1
+    db.infp.update_one({'write': review_receive}, {'$set': {'like': new_like}})
+    return jsonify({'msg': '좋아요!'})
+
+@app.route('/write/intj', methods=['POST'])
+def intj_write_review():
+    token_receive = request.cookies.get('mytoken')
+    try:
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+        user_info = db.users.find_one({"username": payload["id"]})
+        write_receive = request.form['write_give']
+        date_receive = request.form['date_give']
+        doc = {
+            "username" : user_info["username"],
+            "write": write_receive,
+            "date": date_receive,
+            "like" : 0,
+        }
+        db.intj.insert_one(doc)
+        return jsonify({"result": "success", 'msg': '작성 성공'})
+    except (jwt.ExpiredSignature, jwt.exceptions.DecodeError):
+        return redirect(url_for('home'))
+@app.route('/review/intj', methods=['GET'])
+def intj_show_review():
+    token_receive = request.cookies.get('mytoken')
+    try:
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+        username = payload["id"]
+        if username == "":
+            reviews = list(db.intj.find({}).sort("date", -1).limit(10))
+        else:
+            reviews = list(db.intj.find({"username": username}).sort("date", -1).limit(10))
+        for review in reviews:
+            review["_id"] = str(review["_id"])
+        return jsonify({"result": "success", "reviews": reviews})
+    except (jwt.ExpiredSignature, jwt.exceptions.DecodeError):
+        return redirect(url_for('home'))
+@app.route('/delete/intj', methods=['POST'])
+def intj_delete_review():
+    id_receive = request.form["id_give"]
+    db.intj.delete_one({'_id': ObjectId(id_receive)})
+    return jsonify({ 'msg': '리뷰 삭제'})
+@app.route('/like/intj', methods=['POST'])
+def intj_like_review():
+    review_receive = request.form['review_give']
+    target_review = db.intj.find_one({'write': review_receive})
+    current_review = target_review['like']
+    new_like = current_review + 1
+    db.intj.update_one({'write': review_receive}, {'$set': {'like': new_like}})
+    return jsonify({'msg': '좋아요!'})
+
+@app.route('/write/intp', methods=['POST'])
+def intp_write_review():
+    token_receive = request.cookies.get('mytoken')
+    try:
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+        user_info = db.users.find_one({"username": payload["id"]})
+        write_receive = request.form['write_give']
+        date_receive = request.form['date_give']
+        doc = {
+            "username" : user_info["username"],
+            "write": write_receive,
+            "date": date_receive,
+            "like" : 0,
+        }
+        db.intp.insert_one(doc)
+        return jsonify({"result": "success", 'msg': '작성 성공'})
+    except (jwt.ExpiredSignature, jwt.exceptions.DecodeError):
+        return redirect(url_for('home'))
+@app.route('/review/intp', methods=['GET'])
+def intp_show_review():
+    token_receive = request.cookies.get('mytoken')
+    try:
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+        username = payload["id"]
+        if username == "":
+            reviews = list(db.intp.find({}).sort("date", -1).limit(10))
+        else:
+            reviews = list(db.intp.find({"username": username}).sort("date", -1).limit(10))
+        for review in reviews:
+            review["_id"] = str(review["_id"])
+        return jsonify({"result": "success", "reviews": reviews})
+    except (jwt.ExpiredSignature, jwt.exceptions.DecodeError):
+        return redirect(url_for('home'))
+@app.route('/delete/intp', methods=['POST'])
+def intp_delete_review():
+    id_receive = request.form["id_give"]
+    db.intp.delete_one({'_id': ObjectId(id_receive)})
+    return jsonify({ 'msg': '리뷰 삭제'})
+@app.route('/like/intp', methods=['POST'])
+def intp_like_review():
+    review_receive = request.form['review_give']
+    target_review = db.intp.find_one({'write': review_receive})
+    current_review = target_review['like']
+    new_like = current_review + 1
+    db.intp.update_one({'write': review_receive}, {'$set': {'like': new_like}})
+    return jsonify({'msg': '좋아요!'})
+
+@app.route('/write/isfj', methods=['POST'])
+def isfj_write_review():
+    token_receive = request.cookies.get('mytoken')
+    try:
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+        user_info = db.users.find_one({"username": payload["id"]})
+        write_receive = request.form['write_give']
+        date_receive = request.form['date_give']
+        doc = {
+            "username" : user_info["username"],
+            "write": write_receive,
+            "date": date_receive,
+            "like" : 0,
+        }
+        db.isfj.insert_one(doc)
+        return jsonify({"result": "success", 'msg': '작성 성공'})
+    except (jwt.ExpiredSignature, jwt.exceptions.DecodeError):
+        return redirect(url_for('home'))
+@app.route('/review/isfj', methods=['GET'])
+def isfj_show_review():
+    token_receive = request.cookies.get('mytoken')
+    try:
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+        username = payload["id"]
+        if username == "":
+            reviews = list(db.isfj.find({}).sort("date", -1).limit(10))
+        else:
+            reviews = list(db.isfj.find({"username": username}).sort("date", -1).limit(10))
+        for review in reviews:
+            review["_id"] = str(review["_id"])
+        return jsonify({"result": "success", "reviews": reviews})
+    except (jwt.ExpiredSignature, jwt.exceptions.DecodeError):
+        return redirect(url_for('home'))
+@app.route('/delete/isfj', methods=['POST'])
+def isfj_delete_review():
+    id_receive = request.form["id_give"]
+    db.isfj.delete_one({'_id': ObjectId(id_receive)})
+    return jsonify({ 'msg': '리뷰 삭제'})
+@app.route('/like/isfj', methods=['POST'])
+def isfj_like_review():
+    review_receive = request.form['review_give']
+    target_review = db.isfj.find_one({'write': review_receive})
+    current_review = target_review['like']
+    new_like = current_review + 1
+    db.isfj.update_one({'write': review_receive}, {'$set': {'like': new_like}})
+    return jsonify({'msg': '좋아요!'})
+
+@app.route('/write/isfp', methods=['POST'])
+def isfp_write_review():
+    token_receive = request.cookies.get('mytoken')
+    try:
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+        user_info = db.users.find_one({"username": payload["id"]})
+        write_receive = request.form['write_give']
+        date_receive = request.form['date_give']
+        doc = {
+            "username" : user_info["username"],
+            "write": write_receive,
+            "date": date_receive,
+            "like" : 0,
+        }
+        db.isfp.insert_one(doc)
+        return jsonify({"result": "success", 'msg': '작성 성공'})
+    except (jwt.ExpiredSignature, jwt.exceptions.DecodeError):
+        return redirect(url_for('home'))
+@app.route('/review/isfp', methods=['GET'])
+def isfp_show_review():
+    token_receive = request.cookies.get('mytoken')
+    try:
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+        username = payload["id"]
+        if username == "":
+            reviews = list(db.isfp.find({}).sort("date", -1).limit(10))
+        else:
+            reviews = list(db.isfp.find({"username": username}).sort("date", -1).limit(10))
+        for review in reviews:
+            review["_id"] = str(review["_id"])
+        return jsonify({"result": "success", "reviews": reviews})
+    except (jwt.ExpiredSignature, jwt.exceptions.DecodeError):
+        return redirect(url_for('home'))
+@app.route('/delete/isfp', methods=['POST'])
+def isfp_delete_review():
+    id_receive = request.form["id_give"]
+    db.isfp.delete_one({'_id': ObjectId(id_receive)})
+    return jsonify({ 'msg': '리뷰 삭제'})
+@app.route('/like/isfp', methods=['POST'])
+def isfp_like_review():
+    review_receive = request.form['review_give']
+    target_review = db.isfp.find_one({'write': review_receive})
+    current_review = target_review['like']
+    new_like = current_review + 1
+    db.isfp.update_one({'write': review_receive}, {'$set': {'like': new_like}})
+    return jsonify({'msg': '좋아요!'})
+
+@app.route('/write/istj', methods=['POST'])
+def istj_write_review():
+    token_receive = request.cookies.get('mytoken')
+    try:
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+        user_info = db.users.find_one({"username": payload["id"]})
+        write_receive = request.form['write_give']
+        date_receive = request.form['date_give']
+        doc = {
+            "username" : user_info["username"],
+            "write": write_receive,
+            "date": date_receive,
+            "like" : 0,
+        }
+        db.istj.insert_one(doc)
+        return jsonify({"result": "success", 'msg': '작성 성공'})
+    except (jwt.ExpiredSignature, jwt.exceptions.DecodeError):
+        return redirect(url_for('home'))
+@app.route('/review/istj', methods=['GET'])
+def istj_show_review():
+    token_receive = request.cookies.get('mytoken')
+    try:
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+        username = payload["id"]
+        if username == "":
+            reviews = list(db.istj.find({}).sort("date", -1).limit(10))
+        else:
+            reviews = list(db.istj.find({"username": username}).sort("date", -1).limit(10))
+        for review in reviews:
+            review["_id"] = str(review["_id"])
+        return jsonify({"result": "success", "reviews": reviews})
+    except (jwt.ExpiredSignature, jwt.exceptions.DecodeError):
+        return redirect(url_for('home'))
+@app.route('/delete/istj', methods=['POST'])
+def istj_delete_review():
+    id_receive = request.form["id_give"]
+    db.istj.delete_one({'_id': ObjectId(id_receive)})
+    return jsonify({ 'msg': '리뷰 삭제'})
+@app.route('/like/istj', methods=['POST'])
+def istj_like_review():
+    review_receive = request.form['review_give']
+    target_review = db.istj.find_one({'write': review_receive})
+    current_review = target_review['like']
+    new_like = current_review + 1
+    db.istj.update_one({'write': review_receive}, {'$set': {'like': new_like}})
+    return jsonify({'msg': '좋아요!'})
+
+@app.route('/write/istp', methods=['POST'])
+def istp_write_review():
+    token_receive = request.cookies.get('mytoken')
+    try:
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+        user_info = db.users.find_one({"username": payload["id"]})
+        write_receive = request.form['write_give']
+        date_receive = request.form['date_give']
+        doc = {
+            "username" : user_info["username"],
+            "write": write_receive,
+            "date": date_receive,
+            "like" : 0,
+        }
+        db.istp.insert_one(doc)
+        return jsonify({"result": "success", 'msg': '작성 성공'})
+    except (jwt.ExpiredSignature, jwt.exceptions.DecodeError):
+        return redirect(url_for('home'))
+@app.route('/review/istp', methods=['GET'])
+def istp_show_review():
+    token_receive = request.cookies.get('mytoken')
+    try:
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+        username = payload["id"]
+        if username == "":
+            reviews = list(db.istp.find({}).sort("date", -1).limit(10))
+        else:
+            reviews = list(db.istp.find({"username": username}).sort("date", -1).limit(10))
+        for review in reviews:
+            review["_id"] = str(review["_id"])
+        return jsonify({"result": "success", "reviews": reviews})
+    except (jwt.ExpiredSignature, jwt.exceptions.DecodeError):
+        return redirect(url_for('home'))
+@app.route('/delete/istp', methods=['POST'])
+def istp_delete_review():
+    id_receive = request.form["id_give"]
+    db.istp.delete_one({'_id': ObjectId(id_receive)})
+    return jsonify({ 'msg': '리뷰 삭제'})
+@app.route('/like/istp', methods=['POST'])
+def istp_like_review():
+    review_receive = request.form['review_give']
+    target_review = db.istp.find_one({'write': review_receive})
+    current_review = target_review['like']
+    new_like = current_review + 1
+    db.istp.update_one({'write': review_receive}, {'$set': {'like': new_like}})
     return jsonify({'msg': '좋아요!'})
 
 if __name__ == '__main__':
