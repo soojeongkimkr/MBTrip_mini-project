@@ -16,4 +16,8 @@
 
         showMenu('nav-toggle', 'navbar', 'body-pd')
 
-     
+        const headerTitle = document.getElementsByClassName('title')
+        const btn= document.createElelment("button");
+        const t = document.createTextNode("로그인으로 가기");
+        const button = btn.appendChild(t);
+        headerTitle.append(button)
