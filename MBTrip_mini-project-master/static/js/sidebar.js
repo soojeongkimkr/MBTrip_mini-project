@@ -16,7 +16,7 @@
 
         showMenu('nav-toggle', 'navbar', 'body-pd')
 
-          const headerTitle = document.querySelector('.header')
+const headerTitle = document.querySelector('.header .title')
   // 1. <div> element 만들기
   const newDiv = document.createElement('div');
   
@@ -30,5 +30,5 @@
   headerTitle.appendChild(newDiv);
     
   newDiv.className='button'
-  newDiv.style.cssText='width:130px; height:30px;border-radius: 5px; border:1px solid #fff; display:flex; cursor:pointer; justify-content: center; align-items: center;' 
+  newDiv.style.cssText='width:110px; font-size:12px;height:30px;border-radius: 5px; border:1px solid #fff; display:flex; cursor:pointer; justify-content: center; align-items: center;'
 
