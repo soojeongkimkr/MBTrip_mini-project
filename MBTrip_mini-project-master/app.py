@@ -78,9 +78,9 @@ def check_dup():
     # print(value_receive, type_receive, exists)
     return jsonify({'result': 'success', 'exists': exists})
 
-@app.route('/detail')
-def detail():
-    return  render_template("enfj.html")
+@app.route('/entp')
+def entp():
+    return render_template("entp.html")
 
 @app.route('/enfj')
 def enfj():
