@@ -1,5 +1,5 @@
 // 리뷰와 날짜 저장
-function entj_write() {
+function entj_write_review() {
     let write = $('#write').val()
     let date = new Date().toISOString()
     console.log(write, date)
@@ -36,7 +36,7 @@ function time2str(date) {
 }
 
 // 리뷰 보여주기
-function entj_show() {
+function entj_show_review() {
     $('#list-box').empty();
     $.ajax({
         type: "GET",
@@ -70,8 +70,8 @@ function entj_show() {
                                                     </div>
                                                     <nav class="level is-mobile">
                                                             <div class="feeling_div">
-                                                                    <button class="button is-white" onclick="entj_like('${review}')" ><i class="fa-solid fa-heart"> ${like}</i> </button>
-                                                                    <button class="button is-white" onclick="entj_delete('${id['_id']}')"><i class="fa-solid fa-trash-can"></i></button>
+                                                                    <button class="button is-white" onclick="entj_like_review('${review}')" ><i class="fa-solid fa-heart"> ${like}</i> </button>
+                                                                    <button class="button is-white" onclick="entj_delete_review('${id['_id']}')"><i class="fa-solid fa-trash-can"></i></button>
                                                             </div>
                                                         </nav>
                                                 </div>
@@ -85,7 +85,7 @@ function entj_show() {
 }
 
 // 리뷰 삭제하기
-function entj_delete(id) {
+function entj_delete_review(id) {
     $.ajax({
         type: 'POST',
         url: '/delete/entj',
@@ -100,7 +100,7 @@ function entj_delete(id) {
 }
 
 // 좋아요 수
-function entj_like(review) {
+function entj_like_review(review) {
     $.ajax({
         type: 'POST',
         url: '/like/entj',
