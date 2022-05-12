@@ -142,74 +142,98 @@ def istj():
 def istp():
     return  render_template("istp.html")
 
-
-
-
-
-#사용자가 작성한 리뷰를 db에 저장
-@app.route('/write', methods=['POST'])
-def write_review():
-    # 현재 이용자의 컴퓨터에 저장된 cookie에서 mytoken을 가져온다.
+@app.route('/write/enfj', methods=['POST'])
+def enfj_write():
     token_receive = request.cookies.get('mytoken')
-
     try:
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
         user_info = db.users.find_one({"username": payload["id"]})
-
         write_receive = request.form['write_give']
         date_receive = request.form['date_give']
-        print(type(date_receive))
-
         doc = {
             "username" : user_info["username"],
             "write": write_receive,
             "date": date_receive,
             "like" : 0,
         }
-        db.reviews.insert_one(doc)
+        db.enfj.insert_one(doc)
         return jsonify({"result": "success", 'msg': '작성 성공'})
     except (jwt.ExpiredSignature, jwt.exceptions.DecodeError):
         return redirect(url_for('home'))
-
-@app.route('/review', methods=['GET'])
-def show_review():
-    # 현재 이용자의 컴퓨터에 저장된 cookie에서 mytoken을 가져온다.
+@app.route('/review/enfj', methods=['GET'])
+def enfj_show():
     token_receive = request.cookies.get('mytoken')
-
     try:
-        #암호화되어있는 token의 값을 우리가 사용할 수 있도록 디코딩(암호화 풀기) 해준다.
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
         username = payload["id"]
-
         if username == "":
-            reviews = list(db.reviews.find({}).sort("date", -1).limit(10))
+            reviews = list(db.enfj.find({}).sort("date", -1).limit(10))
         else:
-            reviews = list(db.reviews.find({"username": username}).sort("date", -1).limit(10))
-
+            reviews = list(db.enfj.find({"username": username}).sort("date", -1).limit(10))
         for review in reviews:
             review["_id"] = str(review["_id"])
         return jsonify({"result": "success", "reviews": reviews})
     except (jwt.ExpiredSignature, jwt.exceptions.DecodeError):
         return redirect(url_for('home'))
-
-
-@app.route('/delete', methods=['POST'])
-def delete_review():
-    # 리뷰 삭제
+@app.route('/delete/enfj', methods=['POST'])
+def enfj_delete():
     id_receive = request.form["id_give"]
-    db.reviews.delete_one({'_id': ObjectId(id_receive)})
+    db.enfj.delete_one({'_id': ObjectId(id_receive)})
     return jsonify({ 'msg': '리뷰 삭제'})
-
-
-@app.route('/like', methods=['POST'])
-def like_review():
+@app.route('/like/enfj', methods=['POST'])
+def enfj_like():
     review_receive = request.form['review_give']
-    target_review = db.reviews.find_one({'write': review_receive})
+    target_review = db.enfj.find_one({'write': review_receive})
     current_review = target_review['like']
     new_like = current_review + 1
-
     db.reviews.update_one({'write': review_receive}, {'$set': {'like': new_like}})
+    return jsonify({'msg': '좋아요!'})
 
+@app.route('/write/enfp', methods=['POST'])
+def enfp_write():
+    token_receive = request.cookies.get('mytoken')
+    try:
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+        user_info = db.users.find_one({"username": payload["id"]})
+        write_receive = request.form['write_give']
+        date_receive = request.form['date_give']
+        doc = {
+            "username" : user_info["username"],
+            "write": write_receive,
+            "date": date_receive,
+            "like" : 0,
+        }
+        db.enfp.insert_one(doc)
+        return jsonify({"result": "success", 'msg': '작성 성공'})
+    except (jwt.ExpiredSignature, jwt.exceptions.DecodeError):
+        return redirect(url_for('home'))
+@app.route('/review/enfp', methods=['GET'])
+def enfp_show():
+    token_receive = request.cookies.get('mytoken')
+    try:
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+        username = payload["id"]
+        if username == "":
+            reviews = list(db.enfp.find({}).sort("date", -1).limit(10))
+        else:
+            reviews = list(db.enfp.find({"username": username}).sort("date", -1).limit(10))
+        for review in reviews:
+            review["_id"] = str(review["_id"])
+        return jsonify({"result": "success", "reviews": reviews})
+    except (jwt.ExpiredSignature, jwt.exceptions.DecodeError):
+        return redirect(url_for('home'))
+@app.route('/delete/enfp', methods=['POST'])
+def enfp_delete():
+    id_receive = request.form["id_give"]
+    db.enfp.delete_one({'_id': ObjectId(id_receive)})
+    return jsonify({ 'msg': '리뷰 삭제'})
+@app.route('/like/enfp', methods=['POST'])
+def enfp_like():
+    review_receive = request.form['review_give']
+    target_review = db.enfp.find_one({'write': review_receive})
+    current_review = target_review['like']
+    new_like = current_review + 1
+    db.reviews.update_one({'write': review_receive}, {'$set': {'like': new_like}})
     return jsonify({'msg': '좋아요!'})
 
 if __name__ == '__main__':
